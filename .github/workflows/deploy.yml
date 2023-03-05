@@ -64,15 +64,15 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Criação e Envio da imagem
+    - name: Criação e envio da Imagem
       uses: docker/build-push-action@v4
       with:
-        file: ./Dokcerfile
+        file: ./Dockerfile
         push: true
         run: |
-          export DOKCER_BUILDKIT=0
+          export DOCKER_BUILDKIT=0
           export COMPOSE_DOCKER_CLI_BUILD=0
-        tags:
+        tags: |
           arthurpalma/javacrescer:latest
           
   deploy:
@@ -98,7 +98,3 @@ jobs:
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
         name: lab-crescer-arthur-palma
         location: 'east us'
-        
-      
-    
-    
