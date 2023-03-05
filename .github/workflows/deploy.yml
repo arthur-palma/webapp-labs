@@ -24,23 +24,23 @@ jobs:
   code-quality:
     name: Qualidade de Código
     needs: build
-    runs-on: ubuntu-latest
-    
+    runs-on: ubuntu-latest        
+
     steps:
     - name: Git Checkout
       uses: actions/checkout@v3
-    - name: Adiciona permissao para mvnw
+    - name: Adiciona permissão para mvnw
       run: chmod +x mvnw
-    - name: Analise Sonarcloud
+    - name: Análise SonarCloud
       run: ./mvnw verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lab-crescer-pipeline
       env:
-        SONAR_TOKE: ${{ secrets.SONAR_TOKEN }}
-        
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   tests:
-    name: Testes Automatizados
+    name: Testes automatizados
     needs: code-quality
-    runs-on: ubuntu-latest
-    
+    runs-on: ubuntu-latest    
+
     steps:
     - name: Git Checkout
       uses: actions/checkout@v3
@@ -50,7 +50,7 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
-    - name: Testes Unitarios
+    - name: Testes Unitários
       run: mvn -B test --file pom.xml
       
   push-image:
